@@ -1,0 +1,7 @@
+<apex:page standardStylesheets="false" showHeader="false" showChat="false" sidebar="false" controller="AccountManagementController" docType="html-5.0" applyBodyTag="false">
+<body>
+	<link rel="stylesheet" type="text/css" href="{!URLFOR($Resource.SLDS, 'assets/styles/salesforce-lightning-design-system-vf.min.css')}" />
+	<div id="app" class="react-vf"></div>
+	<script type="text/javascript" src="{!URLFOR($Resource.AccountManagement, 'js/app.js')}"></script>
+</body>
+</apex:page>
