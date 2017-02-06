@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import '../css/App.css';
 
 import { getUrlParameters } from './Helpers';
-import { setInitialState } from './DataHandler';
+import { getInitialState } from './DataHandler';
 
 import AccountHeader from './AccountHeader';
 import AccountDetails from './AccountDetails';
@@ -15,7 +15,10 @@ class App extends React.Component {
 		this.state = {
 			RecordId: '',
 			Sections: new Map(),
-			Fields: new Map()
+			Fields: new Map(),
+			Account: {},
+			Contacts: [],
+			Opps: []
 		}
 	}
 
@@ -23,13 +26,13 @@ class App extends React.Component {
 		const recordId = getUrlParameters()["id"];
 		this.setState({
 			RecordId: recordId
-		}, setInitialState(this));
+		}, () => {getInitialState(this)});
 	}
 
 	render() {
 		return (
 			<div className="App">
-				<AccountHeader Fields={this.state.Fields} />
+				<AccountHeader Fields={this.state.Fields} Section={this.state.Sections.get('Account_Header')} />
 				<AccountDetails />
 				<AccountLongFields />
 			</div>

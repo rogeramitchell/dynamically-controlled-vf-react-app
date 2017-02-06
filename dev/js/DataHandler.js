@@ -1,33 +1,32 @@
-export function setInitialState(context) {
-	let sectionMap = new Map();
-	let fieldMap = new Map();
-
+export function getInitialState(context) {
 	Visualforce.remoting.Manager.invokeAction(
-		'AccountManagementController.getPageMapping', (result1, event1) => {
-			if(event1.statusCode === 200) {
-				result1.map(section => {
-					sectionMap.set(section.Id, section);
+		'AccountManagementController.getInitialState',
+		context.state.RecordId,
+		(result, event) => {	
+			if(event.statusCode === 200) {
+				let Sections = new Map();
+				let Fields = new Map();
+
+				result.sectionMap.map(item => {
+					Sections.set(item.Field_Set_Name__c, item);
+				})
+
+				Sections.forEach((value, key, map) => {
+					console.log(key);
+					Fields.set(key, result.fieldMap[key]);
+				})
+
+				context.setState({
+					Sections: Sections,
+					Fields: Fields,
+					Account: result.account,
+					Contacts: result.contacts,
+					Opps: result.opps
 				});
 
-				Visualforce.remoting.Manager.invokeAction(
-					'AccountManagementController.getFieldDetails',
-					result1,
-					(result2, event2) => {
-						if(event2.statusCode === 200) { 
-							Object.keys(result2).map(fieldGroup => {
-								fieldMap.set(sectionMap.get(fieldGroup).Field_Set_Name__c, result2[fieldGroup]);
-							});
-
-							context.setState({
-								Sections: sectionMap,
-								Fields: fieldMap
-							});
-						} else {
-							console.log(event2);
-						}
-					});
 			} else {
-				console.log(event1);
+				console.log(event);
 			}
-		});
+		}
+	);
 }

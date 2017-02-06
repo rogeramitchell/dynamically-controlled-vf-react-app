@@ -9657,33 +9657,33 @@ exports.default = AccountLongFields;
 Object.defineProperty(exports, "__esModule", {
 	value: true
 });
-exports.setInitialState = setInitialState;
-function setInitialState(context) {
-	var sectionMap = new Map();
-	var fieldMap = new Map();
+exports.getInitialState = getInitialState;
+function getInitialState(context) {
+	Visualforce.remoting.Manager.invokeAction('AccountManagementController.getInitialState', context.state.RecordId, function (result, event) {
+		if (event.statusCode === 200) {
+			(function () {
+				var Sections = new Map();
+				var Fields = new Map();
 
-	Visualforce.remoting.Manager.invokeAction('AccountManagementController.getPageMapping', function (result1, event1) {
-		if (event1.statusCode === 200) {
-			result1.map(function (section) {
-				sectionMap.set(section.Id, section);
-			});
+				result.sectionMap.map(function (item) {
+					Sections.set(item.Field_Set_Name__c, item);
+				});
 
-			Visualforce.remoting.Manager.invokeAction('AccountManagementController.getFieldDetails', result1, function (result2, event2) {
-				if (event2.statusCode === 200) {
-					Object.keys(result2).map(function (fieldGroup) {
-						fieldMap.set(sectionMap.get(fieldGroup).Field_Set_Name__c, result2[fieldGroup]);
-					});
+				Sections.forEach(function (value, key, map) {
+					console.log(key);
+					Fields.set(key, result.fieldMap[key]);
+				});
 
-					context.setState({
-						Sections: sectionMap,
-						Fields: fieldMap
-					});
-				} else {
-					console.log(event2);
-				}
-			});
+				context.setState({
+					Sections: Sections,
+					Fields: Fields,
+					Account: result.account,
+					Contacts: result.contacts,
+					Opps: result.opps
+				});
+			})();
 		} else {
-			console.log(event1);
+			console.log(event);
 		}
 	});
 }
@@ -9801,7 +9801,7 @@ var AccountHeaderField = function (_React$Component) {
 				_react2.default.createElement(
 					"p",
 					{ className: "slds-text-body--regular slds-truncate", title: "" },
-					"Description that demonstrates truncation with a long text field."
+					"Value Face!"
 				)
 			);
 		}
@@ -22418,7 +22418,10 @@ var App = function (_React$Component) {
 		_this.state = {
 			RecordId: '',
 			Sections: new Map(),
-			Fields: new Map()
+			Fields: new Map(),
+			Account: {},
+			Contacts: [],
+			Opps: []
 		};
 		return _this;
 	}
@@ -22426,10 +22429,14 @@ var App = function (_React$Component) {
 	_createClass(App, [{
 		key: 'componentWillMount',
 		value: function componentWillMount() {
+			var _this2 = this;
+
 			var recordId = (0, _Helpers.getUrlParameters)()["id"];
 			this.setState({
 				RecordId: recordId
-			}, (0, _DataHandler.setInitialState)(this));
+			}, function () {
+				(0, _DataHandler.getInitialState)(_this2);
+			});
 		}
 	}, {
 		key: 'render',
@@ -22437,7 +22444,7 @@ var App = function (_React$Component) {
 			return _react2.default.createElement(
 				'div',
 				{ className: 'App' },
-				_react2.default.createElement(_AccountHeader2.default, { Fields: this.state.Fields }),
+				_react2.default.createElement(_AccountHeader2.default, { Fields: this.state.Fields, Section: this.state.Sections.get('Account_Header') }),
 				_react2.default.createElement(_AccountDetails2.default, null),
 				_react2.default.createElement(_AccountLongFields2.default, null)
 			);
