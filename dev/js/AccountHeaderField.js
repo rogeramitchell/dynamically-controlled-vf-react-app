@@ -6,6 +6,7 @@ class AccountHeaderField extends React.Component {
 	}
 
 	render() {
+		console.log('hallo');
 		return(
 	    <li className="slds-page-header__detail-block">
 	      <p className="slds-text-title slds-truncate slds-m-bottom--xx-small" title="Field 1">Field 1</p>
