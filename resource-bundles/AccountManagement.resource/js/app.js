@@ -9523,44 +9523,76 @@ var AccountHeader = function (_React$Component) {
 	_createClass(AccountHeader, [{
 		key: 'render',
 		value: function render(props) {
-			console.log(this.props.Fields);
-			return _react2.default.createElement(
-				'div',
-				{ className: 'slds-page-header' },
-				_react2.default.createElement(
+			if (this.props.Fields.get('Account_Header') != null) {
+				return _react2.default.createElement(
 					'div',
-					{ className: 'slds-grid' },
+					{ className: 'slds-page-header' },
 					_react2.default.createElement(
 						'div',
-						{ className: 'slds-col slds-has-flexi-truncate' },
+						{ className: 'slds-grid' },
 						_react2.default.createElement(
 							'div',
-							{ className: 'slds-media slds-no-space slds-grow' },
+							{ className: 'slds-col slds-has-flexi-truncate' },
 							_react2.default.createElement(
 								'div',
-								{ className: 'slds-media__body' },
+								{ className: 'slds-media slds-no-space slds-grow' },
 								_react2.default.createElement(
-									'p',
-									{ className: 'slds-text-title--caps slds-line-height--reset' },
-									'Test Type'
-								),
+									'div',
+									{ className: 'slds-media__body' },
+									_react2.default.createElement(
+										'p',
+										{ className: 'slds-text-title--caps slds-line-height--reset' },
+										'Test Type'
+									),
+									_react2.default.createElement(
+										'h1',
+										{ className: 'slds-page-header__title slds-m-right--small slds-align-middle slds-truncate', title: 'this should match the Record Title' },
+										'Record Title'
+									)
+								)
+							)
+						)
+					),
+					_react2.default.createElement(
+						'ul',
+						{ className: 'slds-grid slds-page-header__detail-row' },
+						this.props.Fields.get('Account_Header').map(function (item) {
+							return _react2.default.createElement(_AccountHeaderField2.default, { key: item.name, Field: item });
+						})
+					)
+				);
+			} else {
+				return _react2.default.createElement(
+					'div',
+					{ className: 'slds-page-header' },
+					_react2.default.createElement(
+						'div',
+						{ className: 'slds-grid' },
+						_react2.default.createElement(
+							'div',
+							{ className: 'slds-col slds-has-flexi-truncate' },
+							_react2.default.createElement(
+								'div',
+								{ className: 'slds-media slds-no-space slds-grow' },
 								_react2.default.createElement(
-									'h1',
-									{ className: 'slds-page-header__title slds-m-right--small slds-align-middle slds-truncate', title: 'this should match the Record Title' },
-									'Record Title'
+									'div',
+									{ className: 'slds-media__body' },
+									_react2.default.createElement(
+										'p',
+										{ className: 'slds-text-title--caps slds-line-height--reset' },
+										'Test Type'
+									),
+									_react2.default.createElement(
+										'h1',
+										{ className: 'slds-page-header__title slds-m-right--small slds-align-middle slds-truncate', title: 'this should match the Record Title' },
+										'Record Title'
+									)
 								)
 							)
 						)
 					)
-				),
-				_react2.default.createElement(
-					'ul',
-					{ className: 'slds-grid slds-page-header__detail-row' },
-					this.props.Fields == null ? null : this.props.Fields.map(function (field) {
-						_react2.default.createElement(_AccountHeaderField2.default, { key: field.name, field: field });
-					})
-				)
-			);
+				);
+			}
 		}
 	}]);
 
@@ -9749,28 +9781,27 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 var AccountHeaderField = function (_React$Component) {
 	_inherits(AccountHeaderField, _React$Component);
 
-	function AccountHeaderField(props) {
+	function AccountHeaderField() {
 		_classCallCheck(this, AccountHeaderField);
 
-		return _possibleConstructorReturn(this, (AccountHeaderField.__proto__ || Object.getPrototypeOf(AccountHeaderField)).call(this, props));
+		return _possibleConstructorReturn(this, (AccountHeaderField.__proto__ || Object.getPrototypeOf(AccountHeaderField)).call(this));
 	}
 
 	_createClass(AccountHeaderField, [{
-		key: 'render',
+		key: "render",
 		value: function render() {
-			console.log('hallo');
 			return _react2.default.createElement(
-				'li',
-				{ className: 'slds-page-header__detail-block' },
+				"li",
+				{ className: "slds-page-header__detail-block" },
 				_react2.default.createElement(
-					'p',
-					{ className: 'slds-text-title slds-truncate slds-m-bottom--xx-small', title: 'Field 1' },
-					'Field 1'
+					"p",
+					{ className: "slds-text-title slds-truncate slds-m-bottom--xx-small", title: this.props.Field.name },
+					this.props.Field.label
 				),
 				_react2.default.createElement(
-					'p',
-					{ className: 'slds-text-body--regular slds-truncate', title: 'Description that demonstrates truncation with a long text field' },
-					'Description that demonstrates truncation with a long text field.'
+					"p",
+					{ className: "slds-text-body--regular slds-truncate", title: "" },
+					"Description that demonstrates truncation with a long text field."
 				)
 			);
 		}
@@ -22406,7 +22437,7 @@ var App = function (_React$Component) {
 			return _react2.default.createElement(
 				'div',
 				{ className: 'App' },
-				_react2.default.createElement(_AccountHeader2.default, { Fields: this.state.Fields.get('Account_Header') }),
+				_react2.default.createElement(_AccountHeader2.default, { Fields: this.state.Fields }),
 				_react2.default.createElement(_AccountDetails2.default, null),
 				_react2.default.createElement(_AccountLongFields2.default, null)
 			);

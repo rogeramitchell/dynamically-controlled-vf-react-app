@@ -29,7 +29,7 @@ class App extends React.Component {
 	render() {
 		return (
 			<div className="App">
-				<AccountHeader Fields={this.state.Fields.get('Account_Header')} />
+				<AccountHeader Fields={this.state.Fields} />
 				<AccountDetails />
 				<AccountLongFields />
 			</div>
