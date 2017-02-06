@@ -9522,7 +9522,9 @@ var AccountHeader = function (_React$Component) {
 
 	_createClass(AccountHeader, [{
 		key: 'render',
-		value: function render(props) {
+		value: function render() {
+			var _this2 = this;
+
 			if (this.props.Fields.get('Account_Header') != null) {
 				return _react2.default.createElement(
 					'div',
@@ -9542,12 +9544,12 @@ var AccountHeader = function (_React$Component) {
 									_react2.default.createElement(
 										'p',
 										{ className: 'slds-text-title--caps slds-line-height--reset' },
-										'Test Type'
+										'Account'
 									),
 									_react2.default.createElement(
 										'h1',
 										{ className: 'slds-page-header__title slds-m-right--small slds-align-middle slds-truncate', title: 'this should match the Record Title' },
-										'Record Title'
+										this.props.Account.Name
 									)
 								)
 							)
@@ -9557,7 +9559,7 @@ var AccountHeader = function (_React$Component) {
 						'ul',
 						{ className: 'slds-grid slds-page-header__detail-row' },
 						this.props.Fields.get('Account_Header').map(function (item) {
-							return _react2.default.createElement(_AccountHeaderField2.default, { key: item.name, Field: item });
+							return _react2.default.createElement(_AccountHeaderField2.default, { key: item.name, Field: item, Account: _this2.props.Account });
 						})
 					)
 				);
@@ -9670,7 +9672,6 @@ function getInitialState(context) {
 				});
 
 				Sections.forEach(function (value, key, map) {
-					console.log(key);
 					Fields.set(key, result.fieldMap[key]);
 				});
 
@@ -9801,7 +9802,7 @@ var AccountHeaderField = function (_React$Component) {
 				_react2.default.createElement(
 					"p",
 					{ className: "slds-text-body--regular slds-truncate", title: "" },
-					"Value Face!"
+					this.props.Account[this.props.Field.name]
 				)
 			);
 		}
@@ -22399,6 +22400,10 @@ var _AccountLongFields = __webpack_require__(82);
 
 var _AccountLongFields2 = _interopRequireDefault(_AccountLongFields);
 
+var _ContactTable = __webpack_require__(188);
+
+var _ContactTable2 = _interopRequireDefault(_ContactTable);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -22444,9 +22449,14 @@ var App = function (_React$Component) {
 			return _react2.default.createElement(
 				'div',
 				{ className: 'App' },
-				_react2.default.createElement(_AccountHeader2.default, { Fields: this.state.Fields, Section: this.state.Sections.get('Account_Header') }),
+				_react2.default.createElement(_AccountHeader2.default, { Fields: this.state.Fields,
+					Section: this.state.Sections.get('Account_Header'),
+					Account: this.state.Account }),
 				_react2.default.createElement(_AccountDetails2.default, null),
-				_react2.default.createElement(_AccountLongFields2.default, null)
+				_react2.default.createElement(_AccountLongFields2.default, null),
+				_react2.default.createElement(_ContactTable2.default, { Fields: this.state.Fields,
+					Section: this.state.Sections.get('Contact_Table'),
+					Contacts: this.state.Contacts })
 			);
 		}
 	}]);
@@ -22455,6 +22465,253 @@ var App = function (_React$Component) {
 }(_react2.default.Component);
 
 _reactDom2.default.render(_react2.default.createElement(App, null), document.getElementById('app'));
+
+/***/ }),
+/* 188 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+	value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(20);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _ContactTableHeader = __webpack_require__(189);
+
+var _ContactTableHeader2 = _interopRequireDefault(_ContactTableHeader);
+
+var _ContactTableRow = __webpack_require__(190);
+
+var _ContactTableRow2 = _interopRequireDefault(_ContactTableRow);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var ContactTable = function (_React$Component) {
+	_inherits(ContactTable, _React$Component);
+
+	function ContactTable(props) {
+		_classCallCheck(this, ContactTable);
+
+		return _possibleConstructorReturn(this, (ContactTable.__proto__ || Object.getPrototypeOf(ContactTable)).call(this, props));
+	}
+
+	_createClass(ContactTable, [{
+		key: 'render',
+		value: function render(props) {
+			var _this2 = this;
+
+			if (this.props.Fields.get('Contact_Table') != null && this.props.Contacts != null) {
+				return _react2.default.createElement(
+					'table',
+					{ className: 'slds-table slds-table--bordered slds-table--cell-buffer' },
+					_react2.default.createElement(
+						'thead',
+						null,
+						_react2.default.createElement(
+							'tr',
+							{ className: 'slds-text-title--caps' },
+							this.props.Fields.get('Contact_Table').map(function (item) {
+								return _react2.default.createElement(_ContactTableHeader2.default, { key: item.name, Field: item });
+							})
+						)
+					),
+					_react2.default.createElement(
+						'tbody',
+						null,
+						this.props.Contacts.map(function (item) {
+							return _react2.default.createElement(_ContactTableRow2.default, { key: item.Id, Fields: _this2.props.Fields.get('Contact_Table'), Contact: item });
+						})
+					)
+				);
+			} else {
+				return _react2.default.createElement('div', null);
+			}
+		}
+	}]);
+
+	return ContactTable;
+}(_react2.default.Component);
+
+exports.default = ContactTable;
+
+/***/ }),
+/* 189 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+	value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(20);
+
+var _react2 = _interopRequireDefault(_react);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var ContactTableHeader = function (_React$Component) {
+	_inherits(ContactTableHeader, _React$Component);
+
+	function ContactTableHeader(props) {
+		_classCallCheck(this, ContactTableHeader);
+
+		return _possibleConstructorReturn(this, (ContactTableHeader.__proto__ || Object.getPrototypeOf(ContactTableHeader)).call(this, props));
+	}
+
+	_createClass(ContactTableHeader, [{
+		key: "render",
+		value: function render() {
+			return _react2.default.createElement(
+				"th",
+				{ scope: "col" },
+				_react2.default.createElement(
+					"div",
+					{ className: "slds-truncate", title: this.props.Field.name },
+					this.props.Field.label
+				)
+			);
+		}
+	}]);
+
+	return ContactTableHeader;
+}(_react2.default.Component);
+
+exports.default = ContactTableHeader;
+
+/***/ }),
+/* 190 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+	value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(20);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _ContactTableRowCell = __webpack_require__(191);
+
+var _ContactTableRowCell2 = _interopRequireDefault(_ContactTableRowCell);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var ContactTableRow = function (_React$Component) {
+	_inherits(ContactTableRow, _React$Component);
+
+	function ContactTableRow(props) {
+		_classCallCheck(this, ContactTableRow);
+
+		return _possibleConstructorReturn(this, (ContactTableRow.__proto__ || Object.getPrototypeOf(ContactTableRow)).call(this, props));
+	}
+
+	_createClass(ContactTableRow, [{
+		key: 'render',
+		value: function render() {
+			var _this2 = this;
+
+			return _react2.default.createElement(
+				'tr',
+				null,
+				this.props.Fields.map(function (item) {
+					return _react2.default.createElement(_ContactTableRowCell2.default, { key: _this2.props.Contact.Id + '-' + item.name, Field: item, Value: _this2.props.Contact[item.name] });
+				})
+			);
+		}
+	}]);
+
+	return ContactTableRow;
+}(_react2.default.Component);
+
+exports.default = ContactTableRow;
+
+/***/ }),
+/* 191 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+	value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(20);
+
+var _react2 = _interopRequireDefault(_react);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var ContactTableRowCell = function (_React$Component) {
+	_inherits(ContactTableRowCell, _React$Component);
+
+	function ContactTableRowCell(props) {
+		_classCallCheck(this, ContactTableRowCell);
+
+		return _possibleConstructorReturn(this, (ContactTableRowCell.__proto__ || Object.getPrototypeOf(ContactTableRowCell)).call(this, props));
+	}
+
+	_createClass(ContactTableRowCell, [{
+		key: "render",
+		value: function render() {
+			return _react2.default.createElement(
+				"td",
+				null,
+				_react2.default.createElement(
+					"div",
+					{ className: "slds-truncate" },
+					this.props.Value
+				)
+			);
+		}
+	}]);
+
+	return ContactTableRowCell;
+}(_react2.default.Component);
+
+exports.default = ContactTableRowCell;
 
 /***/ })
 /******/ ]);

@@ -12,7 +12,6 @@ export function getInitialState(context) {
 				})
 
 				Sections.forEach((value, key, map) => {
-					console.log(key);
 					Fields.set(key, result.fieldMap[key]);
 				})
 

@@ -8,6 +8,7 @@ import { getInitialState } from './DataHandler';
 import AccountHeader from './AccountHeader';
 import AccountDetails from './AccountDetails';
 import AccountLongFields from './AccountLongFields';
+import ContactTable from './ContactTable';
 
 class App extends React.Component {
 	constructor(props) {
@@ -32,9 +33,14 @@ class App extends React.Component {
 	render() {
 		return (
 			<div className="App">
-				<AccountHeader Fields={this.state.Fields} Section={this.state.Sections.get('Account_Header')} />
+				<AccountHeader 	Fields={this.state.Fields}
+												Section={this.state.Sections.get('Account_Header')}
+												Account={this.state.Account} />
 				<AccountDetails />
 				<AccountLongFields />
+				<ContactTable 	Fields={this.state.Fields}
+												Section={this.state.Sections.get('Contact_Table')}
+												Contacts={this.state.Contacts} />
 			</div>
 		);
 	}
