@@ -19,7 +19,7 @@ public class AccountManagementController
 	}
 
 	/*
-		SUPPORT METHODS - assist with retrieving the page mapping and sections we have
+		SUPPORT METHODS
 	*/
 	@RemoteAction
 	public static List<Dynamic_Page_Mapping__mdt> getPageMapping()
