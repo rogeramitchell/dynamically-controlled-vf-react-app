@@ -9,25 +9,28 @@ class OppTable extends React.Component {
 
 	render(props) {
 		if(this.props.Fields.get('Opp_Table') != null && this.props.Opps != null) {
+			let flexOrder = {order: this.props.Section.Section_Order__c};
 			return(
-				<table className="slds-table slds-table--bordered slds-table--cell-buffer">
-					<thead>
-						<tr className="slds-text-title--caps">
+				<div style={flexOrder}>	
+					<table className="slds-table slds-table--bordered slds-table--cell-buffer">
+						<thead>
+							<tr className="slds-text-title--caps">
+								{
+									this.props.Fields.get('Opp_Table').map(item => 
+										<OppTableHeader key={item.name} Field={item} />
+									)
+								}
+							</tr>
+						</thead>
+						<tbody>
 							{
-								this.props.Fields.get('Opp_Table').map(item => 
-									<OppTableHeader key={item.name} Field={item} />
+								this.props.Opps.map(item => 
+									<OppTableRow key={item.Id} Fields={this.props.Fields.get('Opp_Table')} Opp={item} />
 								)
 							}
-						</tr>
-					</thead>
-					<tbody>
-						{
-							this.props.Opps.map(item => 
-								<OppTableRow key={item.Id} Fields={this.props.Fields.get('Opp_Table')} Opp={item} />
-							)
-						}
-					</tbody>
-				</table>
+						</tbody>
+					</table>
+				</div>
 			);
 		} else {
 			return(

@@ -1,15 +1,20 @@
 import React from 'react';
 
 class AccountDetails extends React.Component {
-	constructor() {
-		super();
+	constructor(props) {
+		super(props);
 	}
 
 	render() {
-		return(
-			<div>
-			</div>
-		);
+		if(this.props.Fields.get('Account_Details') != null) {
+			let flexOrder = {order: this.props.Section.Section_Order__c};
+			return(
+				<div style={flexOrder}>
+				</div>
+			);
+		} else {
+			return null;
+		}
 	}
 }
 

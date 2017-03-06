@@ -9464,16 +9464,21 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 var AccountDetails = function (_React$Component) {
 	_inherits(AccountDetails, _React$Component);
 
-	function AccountDetails() {
+	function AccountDetails(props) {
 		_classCallCheck(this, AccountDetails);
 
-		return _possibleConstructorReturn(this, (AccountDetails.__proto__ || Object.getPrototypeOf(AccountDetails)).call(this));
+		return _possibleConstructorReturn(this, (AccountDetails.__proto__ || Object.getPrototypeOf(AccountDetails)).call(this, props));
 	}
 
 	_createClass(AccountDetails, [{
 		key: 'render',
 		value: function render() {
-			return _react2.default.createElement('div', null);
+			if (this.props.Fields.get('Account_Details') != null) {
+				var flexOrder = { order: this.props.Section.Section_Order__c };
+				return _react2.default.createElement('div', { style: flexOrder });
+			} else {
+				return null;
+			}
 		}
 	}]);
 
@@ -9526,9 +9531,11 @@ var AccountHeader = function (_React$Component) {
 			var _this2 = this;
 
 			if (this.props.Fields.get('Account_Header') != null) {
+				var flexOrder = { order: this.props.Section.Section_Order__c };
+
 				return _react2.default.createElement(
 					'div',
-					{ className: 'slds-page-header' },
+					{ style: flexOrder, className: 'slds-page-header' },
 					_react2.default.createElement(
 						'div',
 						{ className: 'slds-grid' },
@@ -9640,7 +9647,12 @@ var AccountLongFields = function (_React$Component) {
 	_createClass(AccountLongFields, [{
 		key: 'render',
 		value: function render() {
-			return _react2.default.createElement('div', null);
+			if (this.props.Fields.get('Account_Long_Fields') != null) {
+				var flexOrder = { order: this.props.Section.Section_Order__c };
+				return _react2.default.createElement('div', { style: flexOrder });
+			} else {
+				return null;
+			}
 		}
 	}]);
 
@@ -9697,26 +9709,31 @@ var ContactTable = function (_React$Component) {
 			var _this2 = this;
 
 			if (this.props.Fields.get('Contact_Table') != null && this.props.Contacts != null) {
+				var flexOrder = { order: this.props.Section.Section_Order__c };
 				return _react2.default.createElement(
-					'table',
-					{ className: 'slds-table slds-table--bordered slds-table--cell-buffer' },
+					'div',
+					{ style: flexOrder },
 					_react2.default.createElement(
-						'thead',
-						null,
+						'table',
+						{ className: 'slds-table slds-table--bordered slds-table--cell-buffer' },
 						_react2.default.createElement(
-							'tr',
-							{ className: 'slds-text-title--caps' },
-							this.props.Fields.get('Contact_Table').map(function (item) {
-								return _react2.default.createElement(_ContactTableHeader2.default, { key: item.name, Field: item });
+							'thead',
+							null,
+							_react2.default.createElement(
+								'tr',
+								{ className: 'slds-text-title--caps' },
+								this.props.Fields.get('Contact_Table').map(function (item) {
+									return _react2.default.createElement(_ContactTableHeader2.default, { key: item.name, Field: item });
+								})
+							)
+						),
+						_react2.default.createElement(
+							'tbody',
+							null,
+							this.props.Contacts.map(function (item) {
+								return _react2.default.createElement(_ContactTableRow2.default, { key: item.Id, Fields: _this2.props.Fields.get('Contact_Table'), Contact: item });
 							})
 						)
-					),
-					_react2.default.createElement(
-						'tbody',
-						null,
-						this.props.Contacts.map(function (item) {
-							return _react2.default.createElement(_ContactTableRow2.default, { key: item.Id, Fields: _this2.props.Fields.get('Contact_Table'), Contact: item });
-						})
 					)
 				);
 			} else {
@@ -10067,7 +10084,7 @@ exports = module.exports = __webpack_require__(93)();
 
 
 // module
-exports.push([module.i, "", ""]);
+exports.push([module.i, "div.app-container {\n    display: flex;\n    flex-direction: column;\n}", ""]);
 
 // exports
 
@@ -22697,12 +22714,16 @@ var App = function (_React$Component) {
 		value: function render() {
 			return _react2.default.createElement(
 				'div',
-				{ className: 'App' },
+				{ className: 'app-container' },
 				_react2.default.createElement(_AccountHeader2.default, { Fields: this.state.Fields,
 					Section: this.state.Sections.get('Account_Header'),
 					Account: this.state.Account }),
-				_react2.default.createElement(_AccountDetails2.default, null),
-				_react2.default.createElement(_AccountLongFields2.default, null),
+				_react2.default.createElement(_AccountDetails2.default, { Fields: this.state.Fields,
+					Section: this.state.Sections.get('Account_Details'),
+					Account: this.state.Account }),
+				_react2.default.createElement(_AccountLongFields2.default, { Fields: this.state.Fields,
+					Section: this.state.Sections.get('Account_Long_Fields'),
+					Account: this.state.Account }),
 				_react2.default.createElement(_ContactTable2.default, { Fields: this.state.Fields,
 					Section: this.state.Sections.get('Contact_Table'),
 					Contacts: this.state.Contacts }),
@@ -22766,26 +22787,31 @@ var OppTable = function (_React$Component) {
 			var _this2 = this;
 
 			if (this.props.Fields.get('Opp_Table') != null && this.props.Opps != null) {
+				var flexOrder = { order: this.props.Section.Section_Order__c };
 				return _react2.default.createElement(
-					'table',
-					{ className: 'slds-table slds-table--bordered slds-table--cell-buffer' },
+					'div',
+					{ style: flexOrder },
 					_react2.default.createElement(
-						'thead',
-						null,
+						'table',
+						{ className: 'slds-table slds-table--bordered slds-table--cell-buffer' },
 						_react2.default.createElement(
-							'tr',
-							{ className: 'slds-text-title--caps' },
-							this.props.Fields.get('Opp_Table').map(function (item) {
-								return _react2.default.createElement(_OppTableHeader2.default, { key: item.name, Field: item });
+							'thead',
+							null,
+							_react2.default.createElement(
+								'tr',
+								{ className: 'slds-text-title--caps' },
+								this.props.Fields.get('Opp_Table').map(function (item) {
+									return _react2.default.createElement(_OppTableHeader2.default, { key: item.name, Field: item });
+								})
+							)
+						),
+						_react2.default.createElement(
+							'tbody',
+							null,
+							this.props.Opps.map(function (item) {
+								return _react2.default.createElement(_OppTableRow2.default, { key: item.Id, Fields: _this2.props.Fields.get('Opp_Table'), Opp: item });
 							})
 						)
-					),
-					_react2.default.createElement(
-						'tbody',
-						null,
-						this.props.Opps.map(function (item) {
-							return _react2.default.createElement(_OppTableRow2.default, { key: item.Id, Fields: _this2.props.Fields.get('Opp_Table'), Opp: item });
-						})
 					)
 				);
 			} else {

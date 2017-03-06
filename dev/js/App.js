@@ -33,12 +33,16 @@ class App extends React.Component {
 
 	render() {
 		return (
-			<div className="App">
+			<div className="app-container">
 				<AccountHeader 	Fields={this.state.Fields}
 								Section={this.state.Sections.get('Account_Header')}
 								Account={this.state.Account} />
-				<AccountDetails />
-				<AccountLongFields />
+				<AccountDetails 	Fields={this.state.Fields}
+									Section={this.state.Sections.get('Account_Details')}
+									Account={this.state.Account}/>
+				<AccountLongFields 	Fields={this.state.Fields}
+									Section={this.state.Sections.get('Account_Long_Fields')}
+									Account={this.state.Account}/>
 				<ContactTable 	Fields={this.state.Fields}
 								Section={this.state.Sections.get('Contact_Table')}
 								Contacts={this.state.Contacts} />

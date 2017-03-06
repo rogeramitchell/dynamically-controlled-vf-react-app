@@ -6,10 +6,15 @@ class AccountLongFields extends React.Component {
 	}
 
 	render() {
-		return(
-			<div>
-			</div>
-		);
+		if(this.props.Fields.get('Account_Long_Fields') != null) {
+			let flexOrder = {order: this.props.Section.Section_Order__c};
+			return(
+				<div style={flexOrder}>
+				</div>
+			);
+		} else {
+			return null;
+		}
 	}
 }
 
