@@ -11,10 +11,6 @@
         <value xsi:type="xsd:string">Account_Header</value>
     </values>
     <values>
-        <field>Number_of_Columns__c</field>
-        <value xsi:type="xsd:double">5.0</value>
-    </values>
-    <values>
         <field>Object_Name__c</field>
         <value xsi:type="xsd:string">Account</value>
     </values>

@@ -24,7 +24,7 @@ public class AccountManagementController
 	@RemoteAction
 	public static List<Dynamic_Page_Mapping__mdt> getPageMapping()
 	{
-		return [SELECT Id, Object_Name__c, Field_Set_Name__c, Section_Order__c, Number_of_Columns__c FROM Dynamic_Page_Mapping__mdt WHERE Active__c = true ORDER BY Section_Order__c ASC];
+		return [SELECT Id, Object_Name__c, Field_Set_Name__c, Section_Order__c FROM Dynamic_Page_Mapping__mdt WHERE Active__c = true ORDER BY Section_Order__c ASC];
 	}
 	
 	@RemoteAction

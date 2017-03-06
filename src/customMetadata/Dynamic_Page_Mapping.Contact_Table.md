@@ -11,10 +11,6 @@
         <value xsi:type="xsd:string">Contact_Table</value>
     </values>
     <values>
-        <field>Number_of_Columns__c</field>
-        <value xsi:type="xsd:double">0.0</value>
-    </values>
-    <values>
         <field>Object_Name__c</field>
         <value xsi:type="xsd:string">Contact</value>
     </values>
