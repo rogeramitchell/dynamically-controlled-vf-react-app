@@ -11,7 +11,11 @@
         <name>ApexPage</name>
     </types>
     <types>
-        <members>*</members>
+        <members>Dynamic_Page_Mapping.Account_Details</members>
+        <members>Dynamic_Page_Mapping.Account_Header</members>
+        <members>Dynamic_Page_Mapping.Account_Long_Fields</members>
+        <members>Dynamic_Page_Mapping.Contact_Table</members>
+        <members>Dynamic_Page_Mapping.Opp_Table</members>
         <name>CustomMetadata</name>
     </types>
     <types>
@@ -30,5 +34,5 @@
         <members>AccountManagement</members>
         <name>StaticResource</name>
     </types>
-    <version>38.0</version>
+    <version>39.0</version>
 </Package>
