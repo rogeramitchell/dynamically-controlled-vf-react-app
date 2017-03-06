@@ -9437,57 +9437,7 @@ var ReactPropTypesSecret = 'SECRET_DO_NOT_PASS_THIS_OR_YOU_WILL_BE_FIRED';
 module.exports = ReactPropTypesSecret;
 
 /***/ }),
-/* 80 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-	value: true
-});
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-var _react = __webpack_require__(12);
-
-var _react2 = _interopRequireDefault(_react);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var AccountDetails = function (_React$Component) {
-	_inherits(AccountDetails, _React$Component);
-
-	function AccountDetails(props) {
-		_classCallCheck(this, AccountDetails);
-
-		return _possibleConstructorReturn(this, (AccountDetails.__proto__ || Object.getPrototypeOf(AccountDetails)).call(this, props));
-	}
-
-	_createClass(AccountDetails, [{
-		key: 'render',
-		value: function render() {
-			if (this.props.Fields.get('Account_Details') != null) {
-				var flexOrder = { order: this.props.Section.Section_Order__c };
-				return _react2.default.createElement('div', { style: flexOrder });
-			} else {
-				return null;
-			}
-		}
-	}]);
-
-	return AccountDetails;
-}(_react2.default.Component);
-
-exports.default = AccountDetails;
-
-/***/ }),
+/* 80 */,
 /* 81 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -9611,57 +9561,7 @@ var AccountHeader = function (_React$Component) {
 exports.default = AccountHeader;
 
 /***/ }),
-/* 82 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-	value: true
-});
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-var _react = __webpack_require__(12);
-
-var _react2 = _interopRequireDefault(_react);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var AccountLongFields = function (_React$Component) {
-	_inherits(AccountLongFields, _React$Component);
-
-	function AccountLongFields() {
-		_classCallCheck(this, AccountLongFields);
-
-		return _possibleConstructorReturn(this, (AccountLongFields.__proto__ || Object.getPrototypeOf(AccountLongFields)).call(this));
-	}
-
-	_createClass(AccountLongFields, [{
-		key: 'render',
-		value: function render() {
-			if (this.props.Fields.get('Account_Long_Fields') != null) {
-				var flexOrder = { order: this.props.Section.Section_Order__c };
-				return _react2.default.createElement('div', { style: flexOrder });
-			} else {
-				return null;
-			}
-		}
-	}]);
-
-	return AccountLongFields;
-}(_react2.default.Component);
-
-exports.default = AccountLongFields;
-
-/***/ }),
+/* 82 */,
 /* 83 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -22654,14 +22554,6 @@ var _AccountHeader = __webpack_require__(81);
 
 var _AccountHeader2 = _interopRequireDefault(_AccountHeader);
 
-var _AccountDetails = __webpack_require__(80);
-
-var _AccountDetails2 = _interopRequireDefault(_AccountDetails);
-
-var _AccountLongFields = __webpack_require__(82);
-
-var _AccountLongFields2 = _interopRequireDefault(_AccountLongFields);
-
 var _ContactTable = __webpack_require__(83);
 
 var _ContactTable2 = _interopRequireDefault(_ContactTable);
@@ -22717,12 +22609,6 @@ var App = function (_React$Component) {
 				{ className: 'app-container' },
 				_react2.default.createElement(_AccountHeader2.default, { Fields: this.state.Fields,
 					Section: this.state.Sections.get('Account_Header'),
-					Account: this.state.Account }),
-				_react2.default.createElement(_AccountDetails2.default, { Fields: this.state.Fields,
-					Section: this.state.Sections.get('Account_Details'),
-					Account: this.state.Account }),
-				_react2.default.createElement(_AccountLongFields2.default, { Fields: this.state.Fields,
-					Section: this.state.Sections.get('Account_Long_Fields'),
 					Account: this.state.Account }),
 				_react2.default.createElement(_ContactTable2.default, { Fields: this.state.Fields,
 					Section: this.state.Sections.get('Contact_Table'),
