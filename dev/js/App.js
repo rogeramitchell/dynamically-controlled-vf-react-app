@@ -9,6 +9,7 @@ import AccountHeader from './AccountHeader';
 import AccountDetails from './AccountDetails';
 import AccountLongFields from './AccountLongFields';
 import ContactTable from './ContactTable';
+import OppTable from './OppTable';
 
 class App extends React.Component {
 	constructor(props) {
@@ -34,13 +35,16 @@ class App extends React.Component {
 		return (
 			<div className="App">
 				<AccountHeader 	Fields={this.state.Fields}
-												Section={this.state.Sections.get('Account_Header')}
-												Account={this.state.Account} />
+								Section={this.state.Sections.get('Account_Header')}
+								Account={this.state.Account} />
 				<AccountDetails />
 				<AccountLongFields />
 				<ContactTable 	Fields={this.state.Fields}
-												Section={this.state.Sections.get('Contact_Table')}
-												Contacts={this.state.Contacts} />
+								Section={this.state.Sections.get('Contact_Table')}
+								Contacts={this.state.Contacts} />
+				<OppTable 	Fields={this.state.Fields}
+							Section={this.state.Sections.get('Opp_Table')}
+							Opps={this.state.Opps} />
 			</div>
 		);
 	}

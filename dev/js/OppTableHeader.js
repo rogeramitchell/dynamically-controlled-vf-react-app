@@ -1,6 +1,6 @@
 import React from 'react';
 
-class ContactTableHeader extends React.Component {
+class OppTableHeader extends React.Component {
 	constructor(props) {
 		super(props);
 	}
@@ -14,4 +14,4 @@ class ContactTableHeader extends React.Component {
 	}
 }
 
-export default ContactTableHeader;
+export default OppTableHeader;
