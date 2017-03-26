@@ -26,7 +26,13 @@ user.
 
 Once we grab the custom metadata types for the current page along with the field sets, we need to describe the fields in context of the current user's access to ensure our UI is flexible and matches the current config. [Field Set Reactor](https://github.com/rogeramitchell/FieldSetReactor) has a method that returns a collection of the `FieldDetails` inner class, which does everything from provide the API name and data type, to the user's read/edit access for the field and the label the user sees in standard pages.
 
-For each field set that appears in the custom metadata types for our page, we get a collection of `FieldDetails`.
+For each field set that appears in the custom metadata types for our page, we get a collection of `FieldDetails` and put this into a map with a key as the custom metadata type's `DeveloperName`.
+
+CODE GOES HERE
+
+## Integrating with React Components
+
+
 
 ## Ideas for Implementation
 
