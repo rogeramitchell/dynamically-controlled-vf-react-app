@@ -2,13 +2,17 @@
 
 Custom developed UIs can be a daunting thing to introduce to a client's Salesforce org if the team does not have development resources available to make changes in the future. This can be mitigated upfront by building **configurable UIs** that allow an admin to update the view layer and its components using **clicks not code**. In this example, we'll check out a Visualforce page that serves up a React app, and this React app respects **configurable metadata** within the org.
 
+Here's a quick demo gif that shows this from the admin's perspective.
+
+![demo.gif](demo.gif)
+
 Our app leverages the standard **field set** and **custom metadata type** options within the Salesforce setup menu, and combines these with the [**Field Set Reactor**](https://github.com/rogeramitchell/FieldSetReactor) repo to describe the metadata in context of the current user. Let's dive in and see how these three components work alongside our client-side React app to create an admin configurable UI.
 
 ## Custom Metadata Types: An Alternative to Custom Settings
 
 Custom metadata types were released in Summer '15 as an alternative to custom settings. With these, developers and administrators can deploy the data in each custom metadata type alongside change sets, thus decoupling the potential for data discrepancies between environments as part of releases and sandbox refreshes.
 
-IMAGE GOES HERE
+![cmt-shot.png](cmt-shot.png)
 
 Within the app, we use custom metadata types to define sections of the UI, how these sections interact, and the object/fields that comprise that section. Each record's `DeveloperName` allows us to reference this section within our React app code. The rest of these fields allow admins to control aspects of the UI:
 
