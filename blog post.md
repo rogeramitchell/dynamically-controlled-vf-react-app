@@ -2,7 +2,7 @@
 
 Custom developed UIs can be a daunting thing to introduce to a client's Salesforce org if the team does not have development resources available to make changes in the future. This can be mitigated upfront by building **configurable UIs** that allow an admin to update the view layer and its components using **clicks not code**. In this example, we'll check out a Visualforce page that serves up a React app, and this React app respects **configurable metadata** within the org.
 
-Our app leverages the standard **field set** and **custom metadata type** options within the Salesforce setup menu, and combines these with the [Field Set Reactor](https://github.com/rogeramitchell/FieldSetReactor) repo to describe the metadata in context of the current user. Let's dive in and see how these three components work alongside our client-side React app to create an admin configurable UI.
+Our app leverages the standard **field set** and **custom metadata type** options within the Salesforce setup menu, and combines these with the [**Field Set Reactor**](https://github.com/rogeramitchell/FieldSetReactor) repo to describe the metadata in context of the current user. Let's dive in and see how these three components work alongside our client-side React app to create an admin configurable UI.
 
 ## Custom Metadata Types: An Alternative to Custom Settings
 
@@ -28,11 +28,99 @@ Once we grab the custom metadata types for the current page along with the field
 
 For each field set that appears in the custom metadata types for our page, we get a collection of `FieldDetails` and put this into a map with a key as the custom metadata type's `DeveloperName`.
 
-CODE GOES HERE
+```java
+@RemoteAction
+public static Map<String, List<FieldSetReactor.FieldDetails>> getFieldDetails(List<Dynamic_Page_Mapping__mdt> pageMapping)
+{
+Map<String, List<FieldSetReactor.FieldDetails>> sectionFieldDetails = new Map<String, List<FieldSetReactor.FieldDetails>>();
+		
+	for(Dynamic_Page_Mapping__mdt pageMap : pageMapping)
+	{
+		List<FieldSetReactor.FieldDetails> fieldDetails = FieldSetReactor.getFieldDetails(pageMap.Field_Set_Name__c, pageMap.Object_Name__c);
+		sectionFieldDetails.put(pageMap.Field_Set_Name__c, fieldDetails);
+	}
+	
+	return sectionFieldDetails;
+}
+```
 
-## Integrating with React Components
+## Bundling Together in a Single Package
 
-All of this logic is returned to the Visualforce page as a bundle called `AccountManagementState`, defined within the `AccountManagementController`.
+All of this logic is returned to the Visualforce page as a bundle called `AccountManagementState`, defined within the `AccountManagementController`. This bundle represents not only the sections that comprise the Visualforce page, but also the data that we will pass to each of the sections as `props`. When the page loads, JavaScript remoting calls the `getInitialState` method in `AccountManagementController`, and then the callback parses the response into the React `state`.
+
+Here's what each component of the return value from `getInitialState`:
+
+- `sectionMap`: a collection of our custom metadata type
+- `fieldMap`: a map where each key is the custom metadata type records' `DeveloperName`, and value is a collection of `FieldDetails` (from previous section)
+- `account`: the Account record with its fields
+- `contacts`: a collection of Contacts related to the `account`
+- `opps`: a collection of Opportunities related to the `account`
+
+## From the Front End: Integrating with React
+
+Our utility modules and React components exist in `dev/js`, and the topmost component is `App.js`. During the `componentWillMount` lifecycle method, we grab the record ID from the URL, call `setState` to capture the record ID and use the callback to pass `this` to `getInitialState`.
+
+`getInitialState` is imported from `DataHandler.js`, which is a module that contains the interactions between the client and Apex controller; note that the same name for the client side and server side functions is convenient, but not required.
+
+```js
+componentWillMount() {
+	const recordId = getUrlParameters()["id"];
+	this.setState({
+		RecordId: recordId
+	}, () => {getInitialState(this)});
+}
+```
+
+Our `getInitialState` method in `DataHandler.js` uses JavaScript remoting to call the `getInitialState` method of the `AccountManagementController` and passes the `RecordId` from state. We use an arrow function as our callback, and break apart the single bundle into different parts of our React `state`, and we pass the relevant structures down to each of our React components within `App.js`.
+
+```jsx
+<div className="app-container">
+	<AccountHeader 	Fields={this.state.Fields}
+									Section={this.state.Sections.get('Account_Header')}
+									Account={this.state.Account} />
+	<ContactTable 	Fields={this.state.Fields}
+									Section={this.state.Sections.get('Contact_Table')}
+									Contacts={this.state.Contacts} />
+	<OppTable 	Fields={this.state.Fields}
+							Section={this.state.Sections.get('Opp_Table')}
+							Opps={this.state.Opps} />
+</div>
+```
+
+Focusing specifically on the `AccountHeader.js` component, we iterate over the array returned from `this.props.Fields.get('Account_Header')` to iteratively create `<AccountHeaderField />` components.
+
+```jsx
+<ul className="slds-grid slds-page-header__detail-row">
+  {
+  	this.props.Fields.get('Account_Header').map(item => 
+  		<AccountHeaderField key={item.name} Field={item} Account={this.props.Account} />
+		)
+  }
+</ul>
+```
+
+## Dynamic Section Ordering
+
+We had promised the delivery of dynamically ordered sections, and this doesn't require any JS at all. Using exclusively flexbox, we are able to set the `order` property of each top level `<div>` rendered by our `AccountHeader`, `ContactTable`, and `OppTable` components.
+
+Let's check out this example in `AccountHeader`'s render method:
+```jsx
+if(this.props.Fields.get('Account_Header') != null) {
+	let flexOrder = {order: this.props.Section.Section_Order__c};
+			
+	return(
+		<div style={flexOrder} className="slds-page-header">
+```
+Before returning our JSX, we create an object that contains styles, which includes our `order` property. We pass this as an inline style in the return, and it thus interacts with the other sections based on flexbox's ordering.
+
+Our styles in `dev/css/App.css` are super concise; we want to use flexbox with the primary axis being vertical. The inline styles within each component handle the ordering, and we're done.
+
+```css
+div.app-container {
+	display: flex;
+	flex-direction: column;
+}
+```
 
 ## Ideas for Implementation
 
