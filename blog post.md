@@ -128,6 +128,20 @@ div.app-container {
 
 ## Ideas for Implementation
 
-- Map a UI and define sections
-- Build more logic to each (e.g. record type name, etc)
-- Add to CMTs for handling number of columns to display in different UI sections
+While this is a trivial example, there's room to extend this framework further. Here are a few ideas for how you can apply this your development projects and help admins configure their great UIs:
+
+- Bind custom metadata types to specific Record Types for an object
+- Define pages that should occur in a multi-step wizard
+- Dig further into UI customizations with the [SLDS Grid's Manual Sizing](https://www.lightningdesignsystem.com/components/utilities/grid/#flavor-manual-sizing), allowing admins to control how to display within each section
+
+## Test Driving the App
+
+Head on over to the [GitHub repo](https://github.com/rogeramitchell/dynamically-controlled-vf-react-app) and follow the steps below to try this out in your org:
+
+- Fork the repository and clone to your local machine
+- `cd` to your project folder and run `npm install`
+- After dependencies have loaded, `webpack --watch` to rebuild your `resource-bundles/AccountManagement.resource/js/app.js` file when components in `dev/` are changed
+- Use **Convert to MavensMate Project** feature to deploy this into your org
+- Deploy your `AccountManagement.resource` bundle to the server and refresh your `AccountManagement` page
+
+If you've done something similar or want to share your thoughts, feel free to leave a comment below, an issue or PR on the [repo](https://github.com/rogeramitchell/dynamically-controlled-vf-react-app), or via Twitter [@RogerMitchell](https://www.twitter.com/rogermitchell).
