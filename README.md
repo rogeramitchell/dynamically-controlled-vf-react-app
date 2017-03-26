@@ -14,8 +14,9 @@ This originated as a question as to the complexity of creating a single page app
 - Fork the repository and clone to your local machine
 - `cd` to your project folder and run `npm install`
 - After dependencies have loaded, `webpack --watch` to rebuild your `resource-bundles/AccountManagement.resource/js/app.js` file when components in `dev/` are changed
+- Use **Convert to MavensMate Project** feature to deploy this into your org
+- Deploy your `AccountManagement.resource` bundle to the server and refresh your `AccountManagement` page
 
-As a bonus, use the **Convert to MavensMate Project** feature to deploy this into your org
 
 ## Inspiration for Expanding this Pattern
 If you wanted to further classify the custom metadata type, you could add a "record type" that allows for binding a record type developer name to the fields that should appear in the `AccountHeader.js` component. This could also be extended to only display specific columns in the `OppTable.js` component for that specified account record type.
