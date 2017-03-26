@@ -32,7 +32,7 @@ CODE GOES HERE
 
 ## Integrating with React Components
 
-
+All of this logic is returned to the Visualforce page as a bundle called `AccountManagementState`, defined within the `AccountManagementController`.
 
 ## Ideas for Implementation
 
