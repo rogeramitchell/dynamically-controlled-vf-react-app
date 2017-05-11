@@ -1,7 +1,9 @@
+let path = require('path');
+
 module.exports = {
 	entry: './dev/js/App.js',
 	output: {
-		path: './resource-bundles/AccountManagement.resource/js',
+		path: path.resolve(__dirname, './resource-bundles/AccountManagement.resource/js'),
 		filename: 'app.js'
 	},
 	module: {
